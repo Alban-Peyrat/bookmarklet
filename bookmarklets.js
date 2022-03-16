@@ -14,6 +14,8 @@ javascript: (() => {
 
 //IdRef recherche personne
 javascript: (() => {
+  clearAll();
+  document.getElementById("ComboTri").value = "&sort=affcourt_z asc";
   var list = document.getElementsByName("ComboIndex");
   
   for(var ii=0; ii<list.length; ii++) {
@@ -26,9 +28,11 @@ javascript: (() => {
 
 //IdRef recherche experte nom de famille
 javascript: (() => {
-  var list = document.getElementsByName("ComboIndex");
+  clearAll();
+  document.getElementById("ComboTri").value = "&sort=affcourt_z asc";
   document.getElementById("Text1").value = "nom_t:";
   
+  var list = document.getElementsByName("ComboIndex");
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "#val#"){
       list[ii].checked = true;
@@ -39,6 +43,8 @@ javascript: (() => {
 
 //IdRef recherche experte nom de famille et prénom
 javascript: (() => {
+  clearAll();
+  document.getElementById("ComboTri").value = "&sort=affcourt_z asc";
   var list = document.getElementsByName("ComboIndex");
   document.getElementById("Text1").value = "nom_t: AND prenom_t:";
   
