@@ -27,7 +27,7 @@ javascript: (() => {
 //IdRef recherche experte nom de famille
 javascript: (() => {
   var list = document.getElementsByName("ComboIndex");
-  document.getElementById("Text1").value = "nom_t:"
+  document.getElementById("Text1").value = "nom_t:";
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "#val#"){
@@ -40,7 +40,7 @@ javascript: (() => {
 //IdRef recherche experte nom de famille et prénom
 javascript: (() => {
   var list = document.getElementsByName("ComboIndex");
-  document.getElementById("Text1").value = "nom_t: AND prenom_t:"
+  document.getElementById("Text1").value = "nom_t: AND prenom_t:";
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "#val#"){
