@@ -1,33 +1,8 @@
-//Code stat médecine
+// Alma : add code stat (med)
 javascript:(function(){
   /* La valeur des codes stats correspond aux 3 premiers caractères de la note */
   let noteStat1 = "U00";
   let noteStat2 = "FAB";
-  let temps = 1000; /* in milliseconds */
-  
-  function addCodesStats(hasWaited){
-    if ((hasWaited) && (document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_1").length == 0)){
-        alert("Les codes statistiques n'ont pas pu être appliqués car la page n'a pas totalement chargée.\nRelancez le script sur la page \"Notes\" de l'exemplaire ou attribuez les notes manuellement.");
-    }else {
-        document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_1")[0].value = noteStat1;
-        document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_2")[0].value = noteStat2;
-        document.getElementById("PAGE_BUTTONS_cbuttonsave").click(); /* this saves and quits */
-    }
-  }
-
-  try { /* Checks if this is the notes page */
-    addCodesStats(false);
-  } catch (e) { /* If it's not, goes on it and waits for the previously set time */
-    document.getElementById("cresource_editornotes").click();
-    let timeout = window.setTimeout(addCodesStats, temps, true);
-  }
-})();
-
-//Code stat odonto
-javascript:(function(){
-  /* La valeur des codes stats correspond aux 3 premiers caractères de la note */
-  let noteStat1 = "U00";
-  let noteStat2 = "FC0";
   let temps = 1000; /* in milliseconds */
   
   function addCodesStats(hasWaited){
