@@ -7,39 +7,60 @@ Ce fichier reste la source principale pour consulter la dernière version d'un s
 
 ## Alma
 
-### Ajouter les codes statistiques pour la médecine (UB)
+### Ajouter les codes statistiques (UB)
 
 _Exclusif à l'Université de Bordeaux (ou en tout cas, développé exclusivement pour elle)._
 
-Vous devez vous rendre dans un premier temps sur l'onglet `Notes` de la page de votre exemplaire.
-Le script renseignera la note statistique 1 comme `U00 A destination de la communauté universitaire` et la note statistique 2 comme `FAB : Médecine et spécialités`, puis enregistrera les modifications.
+Vous devez vous rendre sur votre exemplaire.
+Le script renseignera la note statistique 1 et la note statistique 2 puis enregistrera les modifications.
 
-Le code (version du 30/03/2022) :
+Afin de choisir les notes, modifiez la valeur de `noteStat1` et / ou `noteStat2` en associant le code de 3 caractères se situant au début du code voulu (exemple : `U00` pour `A destination de la communauté universitaire`).
+Si une alerte vous signalant que les codes statistiques n'ont pas pu être appliqués apparaît souvent, vous pouvez augmenter la valeur de `temps`.
+Cette variable s'exprime en millisecondes (1 seconde est sa valeur par défaut donc).
+Elle est utilisée si vous exécutez le script depuis une page autre que la page `Notes` d'une notice d'exemplaire et sert à attendre qu'Alma charge correctement la page voulue.
+Si le problème a toujours lieu, le fonctionnement d'Alma a peut-être changé et je vous invite à revenir vers moi.
+
+Pour les collègues de la BUSVS, vous trouverez [sous le code une liste des codes statistiques pouvant vous intéresser](#listes-des-codes-statistiques-busvs).
+
+Le code (version du 06/04/2022) :
 
 ``` Javascript
-javascript: (() => {
-  document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_1")[0].value = "U00";
-  document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_2")[0].value = "FAB";
-  document.getElementById("PAGE_BUTTONS_cbuttonsave").click()
+javascript:(function(){
+  /* La valeur des codes stats correspond aux 3 premiers caractères de la note */
+  let noteStat1 = "U00";
+  let noteStat2 = "FAB";
+  let temps = 1000; /* in milliseconds */
+  
+  function addCodesStats(hasWaited){
+    if ((hasWaited) && (document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_1").length == 0)){
+        alert("Les codes statistiques n'ont pas pu être appliqués car la page n'a pas totalement chargée.\nRelancez le script sur la page \"Notes\" de l'exemplaire ou attribuez les notes manuellement.");
+    }else {
+        document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_1")[0].value = noteStat1;
+        document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_2")[0].value = noteStat2;
+        document.getElementById("PAGE_BUTTONS_cbuttonsave").click(); /* this saves and quits */
+    }
+  }
+
+  try { /* Checks if this is the notes page */
+    addCodesStats(false);
+  } catch (e) { /* If it's not, goes on it and waits for the previously set time */
+    document.getElementById("cresource_editornotes").click();
+    let timeout = window.setTimeout(addCodesStats, temps, true);
+  }
 })();
 ```
 
-### Ajouter les codes statistiques pour l'odontologie (UB)
+#### Listes des codes statistiques (BUSVS)
 
-_Exclusif à l'Université de Bordeaux (ou en tout cas, développé exclusivement pour elle)._
-
-Vous devez vous rendre dans un premier temps sur l'onglet `Notes` de la page de votre exemplaire.
-Le script renseignera la note statistique 1 comme `U00 A destination de la communauté universitaire` et la note statistique 2 comme `FC0 : Odontologie`, puis enregistrera les modifications.
-
-Le code (version du 30/03/2022) :
-
-``` Javascript
-javascript: (() => {
-  document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_1")[0].value = "U00";
-  document.getElementsByName("pageBean.itemMd.dnx.physicalItemTable.statisticsNote_2")[0].value = "FC0";
-  document.getElementById("PAGE_BUTTONS_cbuttonsave").click()
-})();
-```
+Ci-dessous, la liste des codes statistiques susceptible de vous intéresser :
+* Note statistique 1 :
+  * `U00` : A destination de la communauté universitaire ;
+  * `UEM` : A usage de formation - manuel ;
+* Note statistique 2 :
+  * `FA0` : Médecine ;
+  * `FAB` : Médecine et spécialités ;
+  * `FB0` : Pharmacie ;
+  * `FC0` : Odontologie ;
 
 ## Idref
 
