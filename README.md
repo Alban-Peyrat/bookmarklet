@@ -64,6 +64,8 @@ Ci-dessous, la liste des codes statistiques susceptibles de vous intéresser :
 
 ## Idref
 
+Attention, ces scripts ne modifient pas la partie `Filtres` de l'interface, si vous souhaitez les utiliser, employez la procédure normale.
+
 ### Passer en recherche nom de personne
 
 Fonctionne sur n'importe quelle page d'IdRef tant que l'URL est `https://www.idref.fr/autorites.jsp`.
@@ -134,6 +136,31 @@ javascript: (() => {
       list[ii].checked = true;
     }
   }
+  document.getElementById("Text1").focus();
+})();
+```
+
+### Passer en recherche nom commun RAMEAU
+
+Fonctionne sur n'importe quelle page d'IdRef tant que l'URL est `https://www.idref.fr/autorites.jsp`.
+Commence une nouvelle recherche en exécutant le script `clearAll()` (ce que fait le bouton `Nouvelle recherche`), puis définit le tri par `De A à Z`.
+Sélectionne ensuite `Nom commun` dans le type d'autorité voulue, puis le filtre `RAMEAU` dans `Type de notice`.
+Enfin, passe le focus sur la zone de saisie dans la section `Termes de recherche`.
+
+Le code (version du 06/04/2022) :
+
+``` Javascript
+javascript: (() => {
+  clearAll();
+  document.getElementById("ComboTri").value = "&sort=affcourt_z asc";
+  var list = document.getElementsByName("ComboIndex");
+  
+  for(var ii=0; ii<list.length; ii++) {
+    if(list[ii].value == "subjectheading_t:#val#"){
+      list[ii].checked = true;
+    }
+  }
+  document.getElementById("recordtype_z_Rameau").checked = true;
   document.getElementById("Text1").focus();
 })();
 ```
