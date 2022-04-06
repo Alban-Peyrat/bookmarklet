@@ -52,7 +52,7 @@ javascript:(function(){
 
 #### Listes des codes statistiques (BUSVS)
 
-Ci-dessous, la liste des codes statistiques susceptible de vous intéresser :
+Ci-dessous, la liste des codes statistiques susceptibles de vous intéresser :
 * Note statistique 1 :
   * `U00` : A destination de la communauté universitaire ;
   * `UEM` : A usage de formation - manuel ;
