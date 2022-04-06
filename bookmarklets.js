@@ -1,3 +1,6 @@
+// Rappels : pour commenter dans les scripts utliser /* */ sinon ça ne fonctionnera pas
+// Aussi, JQuey est utilisable si la page l'utilise de base
+
 // Alma : add code stat (med)
 javascript:(function(){
   /* La valeur des codes stats correspond aux 3 premiers caractères de la note */
@@ -64,5 +67,20 @@ javascript: (() => {
       list[ii].checked = true;
     }
   }
+  document.getElementById("Text1").focus();
+})();
+
+//IdRef recherche nom commun RAMEAU
+javascript: (() => {
+  clearAll();
+  document.getElementById("ComboTri").value = "&sort=affcourt_z asc";
+  var list = document.getElementsByName("ComboIndex");
+  
+  for(var ii=0; ii<list.length; ii++) {
+    if(list[ii].value == "subjectheading_t:#val#"){
+      list[ii].checked = true;
+    }
+  }
+  document.getElementById("recordtype_z_Rameau").checked = true;
   document.getElementById("Text1").focus();
 })();
