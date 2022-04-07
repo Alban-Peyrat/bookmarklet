@@ -64,8 +64,6 @@ Ci-dessous, la liste des codes statistiques susceptibles de vous intéresser :
 
 ## Idref
 
-Attention, ces scripts ne modifient pas la partie `Filtres` de l'interface, si vous souhaitez les utiliser, employez la procédure normale.
-
 ### Passer en recherche nom de personne
 
 Fonctionne sur n'importe quelle page d'IdRef tant que l'URL est `https://www.idref.fr/autorites.jsp`.
@@ -83,7 +81,7 @@ javascript: (() => {
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "persname_t:#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("Text1").focus();
@@ -108,7 +106,7 @@ javascript: (() => {
   var list = document.getElementsByName("ComboIndex");
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("Text1").focus();
@@ -133,7 +131,7 @@ javascript: (() => {
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("Text1").focus();
@@ -157,7 +155,7 @@ javascript: (() => {
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "subjectheading_t:#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("recordtype_z_Rameau").checked = true;
