@@ -34,7 +34,7 @@ javascript: (() => {
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "persname_t:#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("Text1").focus();
@@ -49,7 +49,7 @@ javascript: (() => {
   var list = document.getElementsByName("ComboIndex");
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("Text1").focus();
@@ -64,7 +64,7 @@ javascript: (() => {
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("Text1").focus();
@@ -78,7 +78,7 @@ javascript: (() => {
   
   for(var ii=0; ii<list.length; ii++) {
     if(list[ii].value == "subjectheading_t:#val#"){
-      list[ii].checked = true;
+      list[ii].click();
     }
   }
   document.getElementById("recordtype_z_Rameau").checked = true;
