@@ -71,7 +71,7 @@ Commence une nouvelle recherche en exécutant le script `clearAll()` (ce que fai
 Sélectionne ensuite `Nom de personne` dans le type d'autorité voulue.
 Enfin, passe le focus sur la zone de saisie dans la section `Termes de recherche`.
 
-Le code (version du 30/03/2022) :
+Le code (version du 07/04/2022) :
 
 ``` Javascript
 javascript: (() => {
@@ -95,7 +95,7 @@ Commence une nouvelle recherche en exécutant le script `clearAll()` (ce que fai
 Sélectionne ensuite `Expert` dans le type d'autorité voulue.
 Enfin, passe le focus à la fin de la zone de saisie dans la section `Termes de recherche` en préremplissant le champ avec `nom_t:`.
 
-Le code (version du 30/03/2022) :
+Le code (version du 07/04/2022) :
 
 ``` Javascript
 javascript: (() => {
@@ -120,7 +120,7 @@ Commence une nouvelle recherche en exécutant le script `clearAll()` (ce que fai
 Sélectionne ensuite `Expert` dans le type d'autorité voulue.
 Enfin, passe le focus à la fin de la zone de saisie dans la section `Termes de recherche` en préremplissant le champ avec `nom_t: AND prenom_t:`.
 
-Le code (version du 30/03/2022) :
+Le code (version du 07/04/2022) :
 
 ``` Javascript
 javascript: (() => {
@@ -145,7 +145,7 @@ Commence une nouvelle recherche en exécutant le script `clearAll()` (ce que fai
 Sélectionne ensuite `Nom commun` dans le type d'autorité voulue, puis le filtre `RAMEAU` dans `Type de notice`.
 Enfin, passe le focus sur la zone de saisie dans la section `Termes de recherche`.
 
-Le code (version du 06/04/2022) :
+Le code (version du 07/04/2022) :
 
 ``` Javascript
 javascript: (() => {
