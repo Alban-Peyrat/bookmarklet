@@ -62,6 +62,224 @@ Ci-dessous, la liste des codes statistiques susceptibles de vous intéresser :
   * `FB0` : Pharmacie ;
   * `FC0` : Odontologie ;
 
+## Dumas
+
+Les 4 scripts de métadonnées pour les thèses remplacent [l'aide au dépôt de DUMAS](/../../../ub-svs).
+Toute nouvelle modification se fera ici, l'aide originnelle ne sera plus maintenue sauf cas exceptionnel.
+
+### Métadonnées pour les thèses d'exercice de médecine générale
+
+À activer sur l'onglet du dépôt.
+Ajoute :
+* le `Type de mémoire` comme `Thèse d'exercice de médecine`,
+* le `Domaine de formation` comme `Sciences de la vie et de la santé`,
+* les `Domaines HAL` `Sciences du Vivant [q-bio]` et `Médecine humaine et pathologie`
+* la `Spécialité` comme `Médecine générale`.
+
+Le code (version du 08/04/2022) :
+
+``` Javascript
+javascript:(function(){
+    let typeMemoire = 12; /* dumas_degreeType */
+    let domaineFormation = 48; /* dumas_degreeSubject */
+    let specialite = 150; /* dumas_degreeSpeciality */
+    /* All that text is unnecessary is probably */
+    let domaineHal = '<li style="display: block" class="margin-top-5"><input type="hidden" value="sdv" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Sciences du Vivant [q-bio]</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li><li style="display: block" class="margin-top-5"><input type="hidden" value="sdv.mhep" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span><span style=&quot;display: block; text-align: left; padding-left: 15px&quot;><i class=&quot;glyphicon glyphicon-share-alt&quot; style=&quot;transform: scaleY(-1);&quot;></i> Médecine humaine et pathologie</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Médecine humaine et pathologie</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li>'; /*  */
+
+    document.getElementById("dumas_degreeType").value = typeMemoire;
+    document.getElementById("dumas_degreeSubject").value = domaineFormation;
+    document.getElementById("dumas_degreeSpeciality").value = specialite;
+    document.getElementById("list_domain").innerHTML += domaineHal;
+})();
+```
+
+### Métadonnées pour les thèses d'exercice de médecine spécialisée
+
+À activer sur l'onglet du dépôt.
+Affiche une boîte de dialogue avec [la liste des spécialités identifiées pour la médecine spécialisée (à la BUSVS)](https://github.com/Alban-Peyrat/ub-svs/blob/main/dumas/dumas_busvs_indexes.json).
+Lors du clic sur la spécialité voulue, ajoute :
+* le `Type de mémoire` comme `Thèse d'exercice de médecine`,
+* le `Domaine de formation` comme `Sciences de la vie et de la santé`,
+* les `Domaines HAL` `Sciences du Vivant [q-bio]` et `Médecine humaine et pathologie`
+* la `Spécialité` comme celle sélectionnée (attention, l'appellation affichée ne correspond pas forcément à l'intitulé dans DUMAS).
+
+Le code (version du 08/04/2022) :
+
+``` Javascript
+javascript:(function(){
+    let typeMemoire = 12; /* dumas_degreeType */
+    let domaineFormation = 48; /* dumas_degreeSubject */
+    let specialite = 5; /* dumas_degreeSpeciality */
+    /* All that text is unnecessary is probably */
+    let domaineHal = '<li style="display: block" class="margin-top-5"><input type="hidden" value="sdv" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Sciences du Vivant [q-bio]</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li><li style="display: block" class="margin-top-5"><input type="hidden" value="sdv.mhep" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span><span style=&quot;display: block; text-align: left; padding-left: 15px&quot;><i class=&quot;glyphicon glyphicon-share-alt&quot; style=&quot;transform: scaleY(-1);&quot;></i> Médecine humaine et pathologie</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Médecine humaine et pathologie</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li>'; /*  */
+
+    /* List of specialities in medicine */
+    const listSpe = {
+      "Allergologie":383,
+      "Anatomie et cytologie anatomique":164,
+      "Anatomie et cytologie pathologiques":196,
+      "Anesthésie réanimation":163,
+      "Biologie médicale":159,
+      "Biologie médicale - Virologie (Virologie n'a pas d'index je crois)":159,
+      "Cardiologie et chirurgie vasculaire":170,
+      "Cardiologie et maladies vasculaires":199,
+      "Chirurgie générale":171,
+      "Chirurgie orale (Chirurgie maxillo-faciale)":44,
+      "Chirurgie orthopédique et traumatologique":206,
+      "Chirurgie thoracique et cardio-vasculaire":208,
+      "Chirurgie urologique":209,
+      "Chirurgie viscérale et digestive":211,
+      "Dermatologie et vénéréologie":172,
+      "Diabétologie endocrinologie":203,
+      "Endocrinologie":152,
+      "Endocrinologie et métabolisme":165,
+      "Génétique médicale":174,
+      "Gériatrie":212,
+      "Gynécologie médicale":200,
+      "Gynécologie obstétrique":175,
+      "Hématologie":166,
+      "Hépato-gastro-entérologie":155,
+      "Médecine du travail":176,
+      "Médecine d'urgence":214,
+      "Médecine interne":201,
+      "Médecine interne et immunologie clinique":285,
+      "Médecine légale et expertise médicale":27,
+      "Médecine nucléaire":177,
+      "Médecine physique et de réadaptation":178,
+      "Néphrologie":179,
+      "Neurologie":153,
+      "Oncologie":167,
+      "Oncologie médicale":833,
+      "Ophtalmologie":168,
+      "Oto-rhyno-laryngologie et chirurgie cervico-faciale":169,
+      "Pédiatrie":181,
+      "Physique et Réadaptation":178,
+      "Pneumologie":183,
+      "Psychiatrie":184,
+      "Radiodiagnostic et imagerie médicale":185,
+      "Rhumatologie":186,
+      "Santé publique":543,
+      "Urologie":928
+   };
+
+    /* Dialog for specialities */
+    const alpDialog = document.createElement("div");
+    alpDialog.id = "alpDialog";
+    const alpDialogUl = document.createElement("ul");
+    alpDialogUl.id = "alpDialogUl";
+    for(key in listSpe){
+        let elem = document.createElement("li");
+        let elemInp = document.createElement("a");
+        elemInp.id = "elemInp_" + listSpe[key];
+        elemInp.text = key;
+        /* https://bobbyhadz.com/blog/javascript-create-element-with-onclick-event */
+        elemInp.addEventListener('click', function () {
+            speId = this.id.substring(8);
+            specialite = speId;
+            $("#alpDialog").remove();
+
+            /* Apply changes. All at the same time. */
+            document.getElementById("dumas_degreeType").value = typeMemoire;
+            document.getElementById("dumas_degreeSubject").value = domaineFormation;
+            document.getElementById("dumas_degreeSpeciality").value = specialite;
+            document.getElementById("list_domain").innerHTML += domaineHal;
+        });
+        elem.appendChild(elemInp);
+        alpDialog.appendChild(elem);
+    }
+    $("body").append(alpDialog);
+    $("#alpDialog").dialog({height: 800, width: 800, title:"Choisissez la spécialité"});
+})();
+```
+
+### Métadonnées pour les thèses d'exercice de pharmacie
+
+À activer sur l'onglet du dépôt.
+Affiche une boîte de dialogue avec [la liste des spécialités identifiées pour la pharmacie (à la BUSVS)](https://github.com/Alban-Peyrat/ub-svs/blob/main/dumas/dumas_busvs_indexes.json).
+Lors du clic sur la spécialité voulue, ajoute :
+* le `Type de mémoire` comme `Thèse de pharmacie`,
+* le `Domaine de formation` comme `Sciences de la vie et de la santé`,
+* les `Domaines HAL` `Sciences du Vivant [q-bio]` et `Médecine humaine et pathologie`
+* la `Spécialité` comme celle sélectionnée (attention, l'appellation affichée ne correspond pas forcément à l'intitulé dans DUMAS).
+
+Le code (version du 08/04/2022) :
+
+``` Javascript
+javascript:(function(){
+    let typeMemoire = 13; /* dumas_degreeType */
+    let domaineFormation = 48; /* dumas_degreeSubject */
+    let specialite = 5; /* dumas_degreeSpeciality */
+    /* All that text is unnecessary is probably */
+    let domaineHal = '<li style="display: block" class="margin-top-5"><input type="hidden" value="sdv" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Sciences du Vivant [q-bio]</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li><li style="display: block" class="margin-top-5"><input type="hidden" value="sdv.mhep" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span><span style=&quot;display: block; text-align: left; padding-left: 15px&quot;><i class=&quot;glyphicon glyphicon-share-alt&quot; style=&quot;transform: scaleY(-1);&quot;></i> Médecine humaine et pathologie</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Médecine humaine et pathologie</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li>'; /*  */
+
+    /* List of specialities in pharmacy */
+    const listSpe = {
+      "Biologie médicale":159,
+      "Industrie":844,
+      "Industrie Recherche":790,
+      "Innovation pharmaceutique et recherche":592,
+      "Officine":788,
+      "Pharmacie hospitalière - Pharmacie industrielle et biologie médicale":653,
+      "Pharmacie hospitalière - Pratique et recherche":553,
+      "Pharmacie hospitalière bio-médicale":789,
+      "Pharmacie hospitalière et des collectivités":160,
+      "Sciences Pharmaceutiques":592,
+      "Toxicologie":774
+   };
+
+    /* Dialog for specialities */
+    const alpDialog = document.createElement("div");
+    alpDialog.id = "alpDialog";
+    const alpDialogUl = document.createElement("ul");
+    alpDialogUl.id = "alpDialogUl";
+    for(key in listSpe){
+        let elem = document.createElement("li");
+        let elemInp = document.createElement("a");
+        elemInp.id = "elemInp_" + listSpe[key];
+        elemInp.text = key;
+        /* https://bobbyhadz.com/blog/javascript-create-element-with-onclick-event */
+        elemInp.addEventListener('click', function () {
+            let speId = this.id.substring(8);
+            specialite = speId;
+            $("#alpDialog").remove();
+
+            /* Apply changes. All at the same time. */
+            document.getElementById("dumas_degreeType").value = typeMemoire;
+            document.getElementById("dumas_degreeSubject").value = domaineFormation;
+            document.getElementById("dumas_degreeSpeciality").value = specialite;
+            document.getElementById("list_domain").innerHTML += domaineHal;
+        });
+        elem.appendChild(elemInp);
+        alpDialog.appendChild(elem);
+    }
+    $("body").append(alpDialog);
+    $("#alpDialog").dialog({height: 800, width: 800, title:"Choisissez la spécialité"});
+})();
+```
+
+### Métadonnées pour les thèses d'exercice d'odontologie
+
+À activer sur l'onglet du dépôt.
+Ajoute :
+* le `Type de mémoire` comme `Thèse d'exercice en chirurgie dentaire`,
+* le `Domaine de formation` comme `Sciences de la vie et de la santé`,
+* les `Domaines HAL` `Sciences du Vivant [q-bio]` et `Médecine humaine et pathologie`.
+
+Le code (version du 08/04/2022) :
+
+``` Javascript
+javascript:(function(){
+    let typeMemoire = 30; /* dumas_degreeType */
+    let domaineFormation = 48; /* dumas_degreeSubject */
+    /* All that text is unnecessary is probably */
+    let domaineHal = '<li style="display: block" class="margin-top-5"><input type="hidden" value="sdv" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Sciences du Vivant [q-bio]</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li><li style="display: block" class="margin-top-5"><input type="hidden" value="sdv.mhep" name="domain[]"><span class="label label-primary" style="font-size: inherit; display: inline-block; text-align: justify; white-space: normal; padding: 0px; height: 20px;" data-html="true" data-toggle="tooltip" data-original-title="<span style=&quot;display: block; text-align: left; padding-left: 0px&quot;>Sciences du Vivant [q-bio]</span><span style=&quot;display: block; text-align: left; padding-left: 15px&quot;><i class=&quot;glyphicon glyphicon-share-alt&quot; style=&quot;transform: scaleY(-1);&quot;></i> Médecine humaine et pathologie</span>"><i style="border-radius: 0px; height: 20px; padding: 0px; margin: 0px 7px; top: 1px; bottom: 0px;" class="glyphicon glyphicon-move move" data-toggle="tooltip" data-original-title="Déplacer" data-placement="left"></i><span style="padding-top: 4px; padding-bottom: 0px; margin-top: 0px; height: 20px; display: inline-block;">Médecine humaine et pathologie</span><button style="height: 20px; padding-top: 0px; padding-bottom: 0px; margin-left: 10px; margin-top: -2px; margin-right: 0px; border: medium none ! important; padding-right: 6px;" class="btn btn-xs btn-primary" type="button" data-toggle="tooltip" data-original-title="Supprimer" data-placement="right"><i class="glyphicon glyphicon-trash"></i></button></span></li>'; /*  */
+
+    document.getElementById("dumas_degreeType").value = typeMemoire;
+    document.getElementById("dumas_degreeSubject").value = domaineFormation;
+    document.getElementById("list_domain").innerHTML += domaineHal;
+})();
+```
+
 ## Idref
 
 ### Passer en recherche nom de personne
