@@ -1,5 +1,6 @@
 // Rappels : pour commenter dans les scripts utliser /* */ sinon ça ne fonctionnera pas
-// Aussi, JQuey est utilisable si la page l'utilise de base
+// Aussi, JQuery est utilisable si la page l'utilise de base
+// Pour avoir plusieurs lignes de bookmark : https://github.com/MrOtherGuy/firefox-csshacks/blob/master/chrome/multi-row_bookmarks.css
 
 // Alma : add code stat (med)
 javascript:(function(){
