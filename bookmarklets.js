@@ -249,3 +249,16 @@ javascript: (() => {
   document.getElementById("recordtype_z_Rameau").checked = true;
   document.getElementById("Text1").focus();
 })();
+
+// REBUB header arrête de scroll
+javascript: (function () {
+    document.getElementsByTagName("header")[0].style.position = "static";
+    document.getElementById("content").style.marginTop = 0;
+    document.getElementById("content").style.paddingTop = "10px";
+    document.getElementById("secondary").style.position = "static";
+})();
+
+// Babord+ changer couleur du surlignement (marche aussi sur d'autre sites)
+javascript: (function () {
+    document.styleSheets[0].insertRule("*::selection {background:black!important; color:white!important}");
+})();
