@@ -380,3 +380,37 @@ javascript: (() => {
   document.getElementById("Text1").focus();
 })();
 ```
+
+## Wayback Machine
+
+### Rechercher l'URL actuelle
+
+Recherche l'URL de la page actuelle dans la Wayback Machine.
+
+Le code (version du 28/04/2022) :
+
+``` Javascript
+javascript:(function(){
+    /* Searches the current URL in the Wayabck Machine*/
+    /* Gets current URL */
+    const url = window.location.href;
+    /* Navigates to the Wayback Machine*/
+    document.location.replace("https://web.archive.org/web/*/" + url);
+})();
+```
+
+### Rechercher une URL
+
+Ouvre une boîte de dialoge dans laquelle l'on colle l'URL dont l'on souhaite consulter les archives, puis la recherche après validation.
+
+Le code (version du 28/04/2022) :
+
+``` Javascript
+javascript:(function(){
+    /* Searches a prompted URL in the Wayabck Machine*/
+    /* Gets the wanetd URL */
+    var url = window.prompt("Collez l'URL voulue :");
+    /* Navigates to the Wayback Machine*/
+    document.location.replace("https://web.archive.org/web/*/" + url);
+})();
+```
