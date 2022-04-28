@@ -250,6 +250,24 @@ javascript: (() => {
   document.getElementById("Text1").focus();
 })();
 
+// Wayback Machine this URL
+javascript:(function(){
+    /* Searches the current URL in the Wayabck Machine*/
+    /* Gets current URL */
+    const url = window.location.href;
+    /* Navigates to the Wayback Machine*/
+    document.location.replace("https://web.archive.org/web/*/" + url);
+})();
+
+// Wayback Machine prompted URL
+javascript:(function(){
+    /* Searches a prompted URL in the Wayabck Machine*/
+    /* Gets the wanetd URL */
+    var url = window.prompt("Collez l'URL voulue :");
+    /* Navigates to the Wayback Machine*/
+    document.location.replace("https://web.archive.org/web/*/" + url);
+})();
+
 // REBUB header arrête de scroll
 javascript: (function () {
     document.getElementsByTagName("header")[0].style.position = "static";
