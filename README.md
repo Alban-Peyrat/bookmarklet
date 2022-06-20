@@ -381,6 +381,35 @@ javascript: (() => {
 })();
 ```
 
+## Planno
+
+### Colorer son nom dans les plannings
+
+Colore, pour tous plannings de la page, l'arrière-plan de la cellule du nom renseigné.
+Vous devez remplacer le nom renseigné après le `=` de `nom` par l'exacte forme de votre nom écrite dans Planno.
+Vous pouvez également choisir la couleur en modifiant la valeur de `couleur`, en utilisant le nom anglais de la couleur ou un code CSS.
+[Voici un tableau avec une liste de couleurs si vous voulez (il faut descendre un peu)](https://developer.mozilla.org/fr/docs/Web/CSS/color_value#les_mots-clés).
+
+Le code (version du 20/06/2022) :
+
+``` Javascript
+javascript:(function(){
+  var nom = "Peyrat A."; /* Nom de la personne */
+  var couleur = "red"; /* Nom de la couleur (en anglais) ou notation de la couleur en CSS si vous connaissez*/
+
+  var tables = document.getElementsByClassName("tabsemaine1");
+  for (let ii = 0; ii < tables.length; ii++){
+    let cells = tables[ii].getElementsByTagName("td");
+    for (let jj = 0; jj < cells.length; jj++) {
+      let txt = cells[jj].getElementsByTagName("span");
+      if ((txt.length > 0) && (txt[0].textContent == nom)) {
+        cells[jj].style.backgroundColor = couleur;
+      }
+    }
+  }
+})();
+```
+
 ## Wayback Machine
 
 ### Rechercher l'URL actuelle
