@@ -280,3 +280,20 @@ javascript: (function () {
 javascript: (function () {
     document.styleSheets[0].insertRule("*::selection {background:black!important; color:white!important}");
 })();
+
+// Planno colorer les cases pour un nom
+javascript:(function(){
+  var nom = "Peyrat A."; /* Nom de la personne */
+  var couleur = "red"; /* Nom de la couleur (en anglais) ou notation de la couleur en CSS si vous connaissez*/
+
+  var tables = document.getElementsByClassName("tabsemaine1");
+  for (let ii = 0; ii < tables.length; ii++){
+    let cells = tables[ii].getElementsByTagName("td");
+    for (let jj = 0; jj < cells.length; jj++) {
+      let txt = cells[jj].getElementsByTagName("span");
+      if ((txt.length > 0) && (txt[0].textContent == nom)) {
+        cells[jj].style.backgroundColor = couleur;
+      }
+    }
+  }
+})();
