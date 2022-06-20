@@ -291,7 +291,7 @@ javascript:(function(){
     let cells = tables[ii].getElementsByTagName("td");
     for (let jj = 0; jj < cells.length; jj++) {
       let txt = cells[jj].getElementsByTagName("span");
-      if ((txt.length > 0) && (txt[0].textContent == nom)) {
+      if ((txt.length > 0) && (txt[0].textContent.indexOf(nom) > -1)) {
         cells[jj].style.backgroundColor = couleur;
       }
     }
