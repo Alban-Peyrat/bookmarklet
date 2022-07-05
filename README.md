@@ -390,7 +390,7 @@ Vous devez remplacer le nom renseigné après le `=` de `nom` par l'exacte forme
 Vous pouvez également choisir la couleur en modifiant la valeur de `couleur`, en utilisant le nom anglais de la couleur ou un code CSS.
 [Voici un tableau avec une liste de couleurs si vous voulez (il faut descendre un peu)](https://developer.mozilla.org/fr/docs/Web/CSS/color_value#les_mots-clés).
 
-Le code (version du 20/06/2022) :
+Le code (version du 05/07/2022) :
 
 ``` Javascript
 javascript:(function(){
@@ -402,8 +402,14 @@ javascript:(function(){
     let cells = tables[ii].getElementsByTagName("td");
     for (let jj = 0; jj < cells.length; jj++) {
       let txt = cells[jj].getElementsByTagName("span");
-      if ((txt.length > 0) && (txt[0].textContent.indexOf(nom) > -1)) {
+      if ((txt.length == 1) && (txt[0].textContent.indexOf(nom) > -1)) {
         cells[jj].style.backgroundColor = couleur;
+      } else if (txt.length > 1) {
+        for (let kk = 0; kk < txt.length; kk++) {
+          if (txt[kk].textContent.indexOf(nom) > -1) {
+            cells[jj].style.backgroundColor = couleur;
+          }
+        }
       }
     }
   }
