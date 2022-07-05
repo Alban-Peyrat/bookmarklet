@@ -386,7 +386,7 @@ javascript: (() => {
 ### Colorer son nom dans les plannings
 
 Colore, pour tous plannings de la page, l'arrière-plan de la cellule du nom renseigné.
-Vous devez remplacer le nom renseigné après le `=` de `nom` par l'exacte forme de votre nom écrite dans Planno.
+Vous devez remplacer le nom renseigné après le `=` de `nom` par la forme de votre nom écrite dans Planno.
 Vous pouvez également choisir la couleur en modifiant la valeur de `couleur`, en utilisant le nom anglais de la couleur ou un code CSS.
 [Voici un tableau avec une liste de couleurs si vous voulez (il faut descendre un peu)](https://developer.mozilla.org/fr/docs/Web/CSS/color_value#les_mots-clés).
 
