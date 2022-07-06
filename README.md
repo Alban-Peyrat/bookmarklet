@@ -416,6 +416,54 @@ javascript:(function(){
 })();
 ```
 
+### Colorer le nom de toute l'équipe
+
+Colore, pour tous les plannings de la page, l'arrière-plan et le texte des noms renseignés selon les couleurs renseignées.
+Dans la variable `agents`, vous devez remplacer les noms (le mien et ceux du gouvernement Borne I) par la forme du nom écrite dans Planno.
+Vous pouvez également copier-coller la ligne d'un agent existant pour la rajouter juste après la première afin de rajouter d'autres agents.
+Changez ensuite la couleur (`couleur`) du fonds dans l'accolade située juste après le nom de l'agent ([voici un tableau avec une liste de couleurs (il faut descendre un peu)](https://developer.mozilla.org/fr/docs/Web/CSS/color_value#les_mots-clés)).
+Si vous utilisez une couleur sombre, vous pouvez également changer la couleur du texte en modifiant `couleurTexte` dans l'accolade : je ne recommande que l'utilisation des couleurs `black` et `white` pour les textes.
+
+Le code (version du 06/07/2022) :
+
+``` Javascript
+javascript:(function(){
+  /* couleur = Nom de la couleur (en anglais) ou notation de la couleur en CSS si vous connaissez*/
+  /* couleurTexte = Nom de la couleur (idem qu'au-dessus) du texte */
+  var agents = {
+    "Peyrat A." : {"couleur" : "crimson", "couleurTexte" : "black"},
+    "Borne E." : {"couleur" : "bisque", "couleurTexte" : "black"},
+    "Véran O." : {"couleur" : "rebeccapurple", "couleurTexte" : "white"},
+    "Riester F." : {"couleur" : "deepskyblue", "couleurTexte" : "black"},
+    "Rome I." : {"couleur" : "green", "couleurTexte" : "black"},
+    "Caubel C." : {"couleur" : "deeppink", "couleurTexte" : "black"} /* Attention, le dernier ne doit pas être suivi d'une virgule */
+  };
+
+var tables = document.getElementsByClassName("tabsemaine1");
+  /* Loop tables */
+  for (let ii = 0; ii < tables.length; ii++){
+    let cells = tables[ii].getElementsByTagName("td");
+    /* Loop cells */
+    for (let jj = 0; jj < cells.length; jj++) {
+      let txt = cells[jj].getElementsByTagName("span");
+      /* Loop spans */
+      for (let kk = 0; kk < txt.length; kk++) {
+        /* Loop agents */
+        for (const agent in agents) {
+            console.log(agent);
+            if (txt[kk].textContent.indexOf(agent) > -1) {
+              txt[kk].style.backgroundColor = agents[agent]["couleur"];
+              txt[kk].style.color = agents[agent]["couleurTexte"];
+            }
+            
+        }
+      }
+
+    }
+  }
+})();
+```
+
 ## Wayback Machine
 
 ### Rechercher l'URL actuelle
