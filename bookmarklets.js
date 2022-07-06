@@ -303,3 +303,39 @@ javascript:(function(){
     }
   }
 })();
+
+// Planno colorer toute l'équipe 
+javascript:(function(){
+  /* couleur = Nom de la couleur (en anglais) ou notation de la couleur en CSS si vous connaissez*/
+  /* couleurTexte = Nom de la couleur (idem qu'au-dessus) du texte */
+  var agents = {
+    "Peyrat A." : {"couleur" : "crimson", "couleurTexte" : "black"},
+    "Borne E." : {"couleur" : "bisque", "couleurTexte" : "black"},
+    "Véran O." : {"couleur" : "rebeccapurple", "couleurTexte" : "white"},
+    "Riester F." : {"couleur" : "deepskyblue", "couleurTexte" : "black"},
+    "Rome I." : {"couleur" : "green", "couleurTexte" : "black"},
+    "Caubel C." : {"couleur" : "deeppink", "couleurTexte" : "black"} /* Attention, le dernier ne doit pas être suivi d'une virgule */
+  };
+
+var tables = document.getElementsByClassName("tabsemaine1");
+  /* Loop tables */
+  for (let ii = 0; ii < tables.length; ii++){
+    let cells = tables[ii].getElementsByTagName("td");
+    /* Loop cells */
+    for (let jj = 0; jj < cells.length; jj++) {
+      let txt = cells[jj].getElementsByTagName("span");
+      /* Loop spans */
+      for (let kk = 0; kk < txt.length; kk++) {
+        /* Loop agents */
+        for (const agent in agents) {
+            if (txt[kk].textContent.indexOf(agent) > -1) {
+              txt[kk].style.backgroundColor = agents[agent]["couleur"];
+              txt[kk].style.color = agents[agent]["couleurTexte"];
+            }
+            
+        }
+      }
+
+    }
+  }
+})();
