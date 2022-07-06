@@ -450,7 +450,6 @@ var tables = document.getElementsByClassName("tabsemaine1");
       for (let kk = 0; kk < txt.length; kk++) {
         /* Loop agents */
         for (const agent in agents) {
-            console.log(agent);
             if (txt[kk].textContent.indexOf(agent) > -1) {
               txt[kk].style.backgroundColor = agents[agent]["couleur"];
               txt[kk].style.color = agents[agent]["couleurTexte"];
