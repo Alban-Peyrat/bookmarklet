@@ -381,6 +381,28 @@ javascript: (() => {
 })();
 ```
 
+## Koha
+
+### Rechercher un `biblionumber` à partir d'une boîte de dialogue
+
+Sur une page de Koha, ouvre une boîte de dialogue demandant d'indiquer le `biblionumber` que l'on souhaite rechercher.
+Une fois celui-ci validé, définit la valeur de la barre de recherche catalogue sur `biblionumber={biblionumber}` et lance la recherche catalogue.
+
+``` Javascript
+javascript:(function(){
+  /* Searches a prompted biblionumber in Koha */
+  /* Gets the wanetd biblionumber */
+  var bbnb = window.prompt("Indiquez le biblionumber voulu :");
+
+  /* Writes the command */
+  var catForm = document.querySelector("#header_search #catalog_search #cat-search-block");
+  catForm.querySelector("#search-form").value = "biblionumber=" + bbnb;
+  catForm.querySelector("input[type='submit'][value='Valider']").click();
+})();
+```
+
+### Exporter le tableau de 
+
 ## Planno
 
 ### Colorer son nom dans les plannings

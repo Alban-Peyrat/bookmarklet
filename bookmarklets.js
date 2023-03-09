@@ -339,3 +339,94 @@ var tables = document.getElementsByClassName("tabsemaine1");
     }
   }
 })();
+
+// Koha rechercher biblionumber PROMPT
+javascript:(function(){
+  /* Searches a prompted biblionumber in Koha */
+  /* Gets the wanetd biblionumber */
+  var bbnb = window.prompt("Indiquez le biblionumber voulu :");
+
+  /* Sets-up the catalog search*/
+  /* pas besoin de faire ça, j'avais mal repéré le problème que j'avais*/
+ /* var catSearchButton = document.querySelector("#header_search ul li a[href='#catalog_search']");
+  if (catSearchButton.parentElement.attributes["class"].value.indexOf("ui-state-active") === -1) {
+    catSearchButton.click();
+  }*/
+
+  /* Writes the command */
+  var catForm = document.querySelector("#header_search #catalog_search #cat-search-block");
+  catForm.querySelector("#search-form").value = "biblionumber=" + bbnb;
+  catForm.querySelector("input[type='submit'][value='Valider']").click();
+})();
+
+// Koha exporter tableau règles de circulation
+javascript:(function(){
+  /* var output = ""; */
+
+  /* Dialog set-up */
+  const alpDialog = document.createElement("div");
+  alpDialog.id = "alpDialog";  
+
+  /* Selects all rows */
+  var rows = document.querySelectorAll("#default-circulation-rules tr");
+  for (let ii = 0; ii < rows.length; ii++) {
+  /* Gets the cells inside the row if it's not the edit row */
+    if (!(rows[ii].id === "edit_row")) {
+      /* output += "| "; */
+      let alpDialogP = document.createElement("li");
+      alpDialogP.id = "alpDialogP";
+      alpDialogP.innerText += "| ";
+      
+      let cells = rows[ii].querySelectorAll("td");
+      if (cells.length === 0) {
+        cells = rows[ii].querySelectorAll("th");
+      }
+      /* Gets each cell content */
+      for (let jj = 0; jj < cells.length; jj++){
+        /* output += cells[jj].innerText + " | "; */
+        alpDialogP.innerText += cells[jj].innerText + " | ";
+      }
+      /*output += "\n";*/
+      alpDialog.appendChild(alpDialogP);
+      /* Mise en forme du header et du tableau */
+      if (ii === 0) {
+        /*output += "| ";*/
+        let formatingRow = document.createElement("li");
+        formatingRow.innerText = "| ";
+        for (let jj = 0; jj < cells.length; jj++) {
+          /* output += ":---: | "; */
+          formatingRow.innerText += ":---: | ";
+        }
+        /*output += "| ";*/
+        formatingRow.innerText += "| ";
+        alpDialog.appendChild(formatingRow);
+      }
+    }
+  }
+
+  /* Opens the dialog */
+  $("body").append(alpDialog);
+  alert("Voir la fin de la page pour trouver le texte");
+})();
+
+// Bokeh : search a facet
+// à compléter 
+javascript:(function(){
+  /* Searches the prompted facet in Bokeh */
+
+  var endpoint = "/recherche/simple/expressionRecherche/*/";
+  var index = "multifacets";
+
+  /* Gets this Bokeh URL */
+  var bokeh_url = new URL(window.location.href);
+  
+  /* Gets the user input */
+  var facette = window.prompt("Écrire la facette à rechercher :\n\t(commencer par `_` pour utiliser `facette` au lieu de multifacets)\n\t(pour le même type de facette, mettre un `-` pour rechercher plusieurs facettes en `OU`)");
+  if (facette.charAt(0) === "_") {
+    index = "facette";
+    facette = facette.substring(1)
+  };
+
+  /* Navigates to the Wayback Machine*/
+  document.location.replace(`${bokeh_url.origin}${endpoint}${index}/${facette}`);
+})();
