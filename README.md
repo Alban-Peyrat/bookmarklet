@@ -1,5 +1,7 @@
 # Bookmarklet
 
+[![Active Development](https://img.shields.io/badge/Maintenance%20Level-Actively%20Developed-brightgreen.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d)
+
 _Rappel : pour mettre des bookmarklets, ajouter un nouveau marque-page dans votre navigateur et renseigner les lignes de codes associées comme étant l'URL._
 
 _Les codes sur cette page ne sont qu'un copier-coller du [fichier originel](https://github.com/Alban-Peyrat/bookmarklet/blob/main/bookmarklets.js) à un instant T.
