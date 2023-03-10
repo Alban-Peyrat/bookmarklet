@@ -421,7 +421,7 @@ javascript:(function(){
   var bokeh_url = new URL(window.location.href);
   
   /* Gets the user input */
-  var facette = window.prompt("Écrire la facette à rechercher :\n\t(commencer par `_` pour utiliser `facette` au lieu de multifacets)\n\t(pour le même type de facette, mettre un `-` pour rechercher plusieurs facettes en `OU`)");
+  var facette = window.prompt(`Écrire la facette à rechercher :\n\t(commencer par "_" pour utiliser "facette" au lieu de multifacets)\n\t(pour le même type de facette, mettre un "-" pour rechercher plusieurs facettes en "OU")`);
   if (facette.charAt(0) === "_") {
     index = "facette";
     facette = facette.substring(1)
@@ -429,4 +429,84 @@ javascript:(function(){
 
   /* Navigates to the Wayback Machine*/
   document.location.replace(`${bokeh_url.origin}${endpoint}${index}/${facette}`);
+})();
+
+// Bokeh : search a list of title with on facet type
+javascript:(function(){
+  /* Searches the prompted titles in Bokeh using prompted facets */
+
+  /* ---------- Search part ---------- */
+  /* Search function called by the button */
+  const launchSearchMain = function (){
+    
+    /* Gets facets value and generates that part of the query if needed */
+    let facetsValues = document.getElementById("facetsTextInput").value;
+    if (facetsValues !== ""){
+      facetsValues = `/multifacets/${facetsValues}`;
+    };
+
+    /* Gets the titles */
+    let titles = document.getElementById("advTxtArea").value.split("\n");
+    /* Normalize the titles : normalize the string → remove accents/diatrics → remove non alphanumeric or space caracter*/
+    for (let ii = 0; ii < titles.length; ii++){
+      titles[ii] = titles[ii].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s]/g, " ");
+      /* Deletes empty titles */
+      if (titles[ii].replace(/\s/g, "") === ""){
+        titles.splice(ii);
+        ii--; /* prevents the loop from skipping a title */
+      };
+    };
+
+    /* Launch the search */
+    let url = `${(new URL(window.location.href)).origin}/recherche/simple/axes/a10"${titles.join(`"-10"`)}"${facetsValues}`;
+
+    /* URI encoded url msut be <= 1024 characters */
+    if (encodeURI(url).length > 1024){
+      alert(`URL encodée trop longue, retirez des titres : ${encodeURI(url).length} (doit être <= 1024)`)
+    } else {
+      document.location.replace(url);
+    };
+  };
+
+  /* Empties the screen*/
+  let body = document.getElementsByTagName("body")[0];
+  body.innerHTML = "";
+  body.style.backgroundColor = "#EBE0EB";
+
+  /* ---------- UI part ---------- */
+  /* Paragraph for facets */
+  let facetsParagraph = document.createElement("p");
+  facetsParagraph.textContent = `Facettes (1 type, "-" entre elles pour en rechercher plusieurs) : `;
+  /* Input text for facets */
+  let facetsTextInput = document.createElement("input");
+  facetsTextInput.id = "facetsTextInput";
+  facetsTextInput.type = "text";
+  facetsParagraph.appendChild(facetsTextInput);
+
+  /* Paragrpah explaining title part */
+  let titlesParagraph = document.createElement("p");
+  titlesParagraph.textContent = `Coller chaque titre sur une ligne ↓↓↓`;
+
+  /* Text area for title */
+  let titleTextArea = document.createElement("textarea");
+  titleTextArea.id = "advTxtArea";
+  titleTextArea.rows = 10;
+
+  /* Search button */
+  let searchButton = document.createElement("button");
+  searchButton.id = "searchButton";
+  searchButton.style.marginLeft = "auto";
+  searchButton.style.marginTop = "20px";
+  searchButton.textContent = "Lancer la recherche";
+  searchButton.addEventListener('click', launchSearchMain);
+
+  /* Append everything to a container */
+  let globalDiv = document.createElement("div");
+  globalDiv.id = "globalDiv";
+  globalDiv.style.padding = "5%";
+  globalDiv.appendChild(facetsParagraph);
+  globalDiv.appendChild(titlesParagraph);
+  globalDiv.appendChild(titleTextArea);
+  globalDiv.appendChild(searchButton);
+  body.appendChild(globalDiv);
 })();
