@@ -435,6 +435,10 @@ javascript:(function(){
 javascript:(function(){
   /* Searches the prompted titles in Bokeh using prompted facets */
 
+  const showTitleList = function(){
+    this.nextSibling.style.display = "block";
+  };
+
   /* ---------- Search part ---------- */
   /* Search function called by the button */
   const launchSearchMain = function (){
@@ -447,9 +451,9 @@ javascript:(function(){
 
     /* Gets the titles */
     let titles = document.getElementById("advTxtArea").value.split("\n");
-    /* Normalize the titles : normalize the string → remove accents/diatrics → remove non alphanumeric or space caracter*/
+    /* Normalize the titles : normalize the string → remove accents/diatrics → remove non alphanumeric or space caracter → replace multispaces by 1 */
     for (let ii = 0; ii < titles.length; ii++){
-      titles[ii] = titles[ii].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s]/g, " ");
+      titles[ii] = titles[ii].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s]/g, " ").replace(/\s\s+/g, ' ');
       /* Deletes empty titles */
       if (titles[ii].replace(/\s/g, "") === ""){
         titles.splice(ii);
@@ -458,14 +462,74 @@ javascript:(function(){
     };
 
     /* Launch the search */
-    let url = `${(new URL(window.location.href)).origin}/recherche/simple/axes/a10"${titles.join(`"-10"`)}"${facetsValues}`;
+    const url = `${(new URL(window.location.href)).origin}/recherche/simple${facetsValues}/axes/a`;
 
-    /* URI encoded url msut be <= 1024 characters */
-    if (encodeURI(url).length > 1024){
-      alert(`URL encodée trop longue, retirez des titres : ${encodeURI(url).length} (doit être <= 1024)`)
-    } else {
-      document.location.replace(url);
+    /* Prepares all links */
+    let tempUrl = url;
+    let titleList = [];
+    let urlCount = 0;
+    let titlesCount = 0;
+
+    for (let ii = 0; ii < titles.length; ii++) {
+      /* If the title is too long to fit in a query alone, skips it */
+      if ((encodeURI(url).length + encodeURI(`-10"${titles[ii]}"`).length) > 900) { /*1ko - ~10% to let the select all work properly */
+        let searchLi = document.createElement("li");
+        searchLi.textContent = `Titre trop long : ${titles[ii]}`;
+        document.querySelector("#linkDiv #linkList").appendChild(searchLi);
+        continue;
+      }
+
+      /* If adding this title exceed the limit, output the previous link and resets th url */
+      if ((encodeURI(tempUrl).length + encodeURI(`-10"${titles[ii]}"`).length) > 900) { /*1ko - ~10% to let the select all work properly */
+        /* If yes, adds the link to the list */
+        let searchLi = document.createElement("li");
+        /* Link */
+        let searchLink = document.createElement("a");
+        searchLink.classList.add("title-search-link");
+        searchLink.href = tempUrl;
+        searchLink.target = "_blank";
+        searchLink.id = `searchLink${urlCount}`;
+        searchLink.textContent = `Lien de recherche n°${urlCount} : ${titlesCount} titres`;
+        /* Button for the list of titles to debug */
+        let titleListButton = document.createElement("button");
+        titleListButton.id = `titleListButton${urlCount}`;
+        titleListButton.textContent = "Afficher les titres";
+        titleListButton.addEventListener('click', showTitleList);
+        /* Lists all the titles */
+        let titleListDebug = document.createElement("span");
+        titleListDebug.id = `titleListDebug${urlCount}`;
+        titleListDebug.style.display = "none";
+        titleListDebug.innerHTML = titleList.join("<br/>");
+
+        /* Adds the elements to the list */
+        searchLi.appendChild(searchLink);
+        searchLi.appendChild(titleListButton);
+        searchLi.appendChild(titleListDebug);
+        document.querySelector("#linkDiv #linkList").appendChild(searchLi);
+
+        /* Internal loop resets */
+        tempUrl = url;
+        titleList = [];
+        titlesCount = 0;
+        urlCount++;
+      };
+
+      /* Adds the title to the query */
+      tempUrl += `-10"${titles[ii]}"`;
+      titleList.push(titles[ii]);
+      titlesCount++;
     };
+  
+    /* After the loop, output the last link */
+    let searchLi = document.createElement("li");
+    let searchLink = document.createElement("a");
+    searchLink.classList.add("title-search-link");
+    searchLink.href = tempUrl;
+    searchLink.target = "_blank";
+    searchLink.id = `searchLink${urlCount}`;
+    searchLink.textContent = `Lien de recherche n°${urlCount} : ${titlesCount} titres`;
+    searchLi.appendChild(searchLink);
+    document.querySelector("#linkDiv #linkList").appendChild(searchLi);
   };
 
   /* Empties the screen*/
@@ -497,8 +561,15 @@ javascript:(function(){
   searchButton.id = "searchButton";
   searchButton.style.marginLeft = "auto";
   searchButton.style.marginTop = "20px";
-  searchButton.textContent = "Lancer la recherche";
+  searchButton.textContent = "Générer les liens";
   searchButton.addEventListener('click', launchSearchMain);
+
+  /* Link area */
+  let linkDiv = document.createElement("div");
+  linkDiv.id = "linkDiv";
+  let linkList = document.createElement("ul");
+  linkList.id = "linkList";
+  linkDiv.appendChild(linkList);
 
   /* Append everything to a container */
   let globalDiv = document.createElement("div");
@@ -508,5 +579,6 @@ javascript:(function(){
   globalDiv.appendChild(titlesParagraph);
   globalDiv.appendChild(titleTextArea);
   globalDiv.appendChild(searchButton);
+  globalDiv.appendChild(linkDiv);
   body.appendChild(globalDiv);
 })();
