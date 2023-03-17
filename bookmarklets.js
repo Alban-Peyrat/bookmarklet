@@ -472,7 +472,7 @@ javascript:(function(){
 
     for (let ii = 0; ii < titles.length; ii++) {
       /* If the title is too long to fit in a query alone, skips it */
-      if ((encodeURI(url).length + encodeURI(`-10"${titles[ii]}"`).length) > 900) { /*1ko - ~10% to let the select all work properly */
+      if ((encodeURI(url).length + encodeURI(`-10"${titles[ii]}"`).length) > 800) { /*1ko - ~20% to let the select all work properly */
         let searchLi = document.createElement("li");
         searchLi.textContent = `Titre trop long : ${titles[ii]}`;
         document.querySelector("#linkDiv #linkList").appendChild(searchLi);
@@ -480,7 +480,7 @@ javascript:(function(){
       }
 
       /* If adding this title exceed the limit, output the previous link and resets th url */
-      if ((encodeURI(tempUrl).length + encodeURI(`-10"${titles[ii]}"`).length) > 900) { /*1ko - ~10% to let the select all work properly */
+      if ((encodeURI(tempUrl).length + encodeURI(`-10"${titles[ii]}"`).length) > 800) { /*1ko - ~20% to let the select all work properly */
         /* If yes, adds the link to the list */
         let searchLi = document.createElement("li");
         /* Link */
