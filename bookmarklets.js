@@ -27,6 +27,68 @@ javascript:(function(){
   }
 })();
 
+// ArchiRes : search record by biblinoumber
+javascript:(function(){
+  /* Searches the prompted biblionumber in Bokeh, Koha or Omeka */
+  const bokehEndpoint = "recherche/viewnotice";
+  const bokehLibIdParam = "id_int_bib";
+  const bokehSigbIdParam = "id_sigb";
+  const omekaEndpoint = "admin/item?fulltext_search=&property%5B0%5D%5Bjoiner%5D=and&property%5B0%5D%5Bproperty%5D=185&property%5B0%5D%5Btype%5D=eq&property%5B0%5D%5Btext%5D=";
+  const kohaEndpoint = "cgi-bin/koha/catalogue/detail.pl?biblionumber=";
+  let endpoint = null;
+  let sigbId = null;
+  let libId = 1;
+
+  /* Gets this URL */
+  let curr_url = new URL(window.location.href);
+  if (curr_url.origin.indexOf("omeka") > -1){
+    endpoint = omekaEndpoint;
+  }else if(curr_url.origin.indexOf("koha") > -1){
+    endpoint = kohaEndpoint;
+  }else {
+    endpoint = bokehEndpoint;
+  }
+  
+  /* Gets the user input */
+  let userInput = window.prompt(`ID ?\n\t(To query a Bokeh libray other than the first one, type its ID before an underscore (ex : "5_123456"))`);
+  let hasMatched = /^\s*(\d+)\s*_\s*(.*)\s*$/.exec(userInput);
+  if (hasMatched !== null) {
+    sigbId = hasMatched[2].trim();
+    libId = hasMatched[1].trim();
+  }else{
+    sigbId = userInput.trim();
+  };
+
+  /* Navigates to the Wayback Machine*/
+  if (endpoint === bokehEndpoint){
+    document.location.replace(`${curr_url.origin}/${endpoint}/${bokehSigbIdParam}/${sigbId}/${bokehLibIdParam}/${libId}`);
+  }else {
+    document.location.replace(`${curr_url.origin}/${endpoint}${sigbId}`);
+  } 
+  
+})();
+
+// Bokeh : search a facet
+javascript:(function(){
+  /* Searches the prompted facet in Bokeh */
+
+  var endpoint = "/recherche/simple/expressionRecherche/*/";
+  var index = "multifacets";
+
+  /* Gets this Bokeh URL */
+  var bokeh_url = new URL(window.location.href);
+  
+  /* Gets the user input */
+  var facette = window.prompt(`Écrire la facette à rechercher :\n\t(commencer par "_" pour utiliser "facette" au lieu de multifacets)\n\t(pour le même type de facette, mettre un "-" pour rechercher plusieurs facettes en "OU")`);
+  if (facette.charAt(0) === "_") {
+    index = "facette";
+    facette = facette.substring(1)
+  };
+
+  /* Navigates to the Wayback Machine*/
+  document.location.replace(`${bokeh_url.origin}${endpoint}${index}/${facette}`);
+})();
+
 // Dumas Med Ge
 javascript:(function(){
     let typeMemoire = 12; /* dumas_degreeType */
@@ -407,28 +469,6 @@ javascript:(function(){
   /* Opens the dialog */
   $("body").append(alpDialog);
   alert("Voir la fin de la page pour trouver le texte");
-})();
-
-// Bokeh : search a facet
-// à compléter 
-javascript:(function(){
-  /* Searches the prompted facet in Bokeh */
-
-  var endpoint = "/recherche/simple/expressionRecherche/*/";
-  var index = "multifacets";
-
-  /* Gets this Bokeh URL */
-  var bokeh_url = new URL(window.location.href);
-  
-  /* Gets the user input */
-  var facette = window.prompt(`Écrire la facette à rechercher :\n\t(commencer par "_" pour utiliser "facette" au lieu de multifacets)\n\t(pour le même type de facette, mettre un "-" pour rechercher plusieurs facettes en "OU")`);
-  if (facette.charAt(0) === "_") {
-    index = "facette";
-    facette = facette.substring(1)
-  };
-
-  /* Navigates to the Wayback Machine*/
-  document.location.replace(`${bokeh_url.origin}${endpoint}${index}/${facette}`);
 })();
 
 // Bokeh : search a list of title with on facet type

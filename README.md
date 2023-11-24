@@ -64,6 +64,40 @@ Ci-dessous, la liste des codes statistiques susceptibles de vous intéresser :
   * `FB0` : Pharmacie ;
   * `FC0` : Odontologie ;
 
+## ArchiRès
+
+### Rechercher un biblionumber (Bokeh, Koha, Omeka-S)
+
+Permet de rechercher par biblionumber sur Bokeh, Koha ou Omeka-S, en étant exécuter depuis une page de la base voulue.
+Pour Bokeh, si besoin de rechercher dans une bibliothèque autre que la principale, indiquer sont identifiant devant le biblionumber, séparés par un underscore (ex : `5_123456`) 
+
+## Bokeh
+
+### Effectuer une recherche sur une facette par son identifiant depuis n'importe quelle page du site
+
+``` JS
+// Bokeh : search a facet
+javascript:(function(){
+  /* Searches the prompted facet in Bokeh */
+
+  var endpoint = "/recherche/simple/expressionRecherche/*/";
+  var index = "multifacets";
+
+  /* Gets this Bokeh URL */
+  var bokeh_url = new URL(window.location.href);
+  
+  /* Gets the user input */
+  var facette = window.prompt(`Écrire la facette à rechercher :\n\t(commencer par "_" pour utiliser "facette" au lieu de multifacets)\n\t(pour le même type de facette, mettre un "-" pour rechercher plusieurs facettes en "OU")`);
+  if (facette.charAt(0) === "_") {
+    index = "facette";
+    facette = facette.substring(1)
+  };
+
+  /* Navigates to the Wayback Machine*/
+  document.location.replace(`${bokeh_url.origin}${endpoint}${index}/${facette}`);
+})();
+```
+
 ## Dumas
 
 Les 4 scripts de métadonnées pour les thèses remplacent [l'aide au dépôt de DUMAS](/../../../ub-svs).
