@@ -89,6 +89,13 @@ javascript:(function(){
   document.location.replace(`${bokeh_url.origin}${endpoint}${index}/${facette}`);
 })();
 
+// Bokeh : inspector_gadget
+javascript:(function(){
+  /* Gets this Bokeh URL */
+  var url = new URL(window.location.href);
+  document.location.replace(`${url.origin}${url.pathname}/inspector_gadget/1${url.search}`);
+})();
+
 // Dumas Med Ge
 javascript:(function(){
     let typeMemoire = 12; /* dumas_degreeType */
